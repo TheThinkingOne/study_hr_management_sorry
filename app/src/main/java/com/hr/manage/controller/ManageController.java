@@ -20,12 +20,14 @@ public class ManageController {
 
 	public void run() {
 
-		int mainCommand = -1;
-
-		while (mainCommand != 0) {
+		while (true) {
 
 			outputPrinter.printMainOption();
-			mainCommand = inputPrinter.inputInt(InputPrinter.CHOOSE_MESSAGE);
+			int mainCommand = inputPrinter.inputInt(InputPrinter.CHOOSE_MESSAGE);
+
+			if (mainCommand == 0) {
+				break;
+			}
 
 			int manageCommand = -1;
 			while (manageCommand != 0) {
@@ -33,6 +35,9 @@ public class ManageController {
 				outputPrinter.printManageOption();
 				manageCommand = inputPrinter.inputInt(InputPrinter.CHOOSE_MESSAGE);
 
+				if (manageCommand == 3) {
+					conductManageCommand(manageCommand);
+				}
 			}
 
 		}
@@ -46,8 +51,19 @@ public class ManageController {
 		switch (manageCommand) {
 			case 1:
 				updateWorkAttendance();
+				return;
 			case 2:
 				insertWorkAttendance();
+				return;
+			case 3:
+				deleteWorkAttendance();
+				return;
+			case 4:
+				searchMemberWorkAttendance();
+				return;
+			case 5:
+				searchDepartmentWorkAttendance();
+				return;
 		}
 	}
 
@@ -73,6 +89,31 @@ public class ManageController {
 		outputPrinter.printResultMessage(resultMessage);
 	}
 
+	private void deleteWorkAttendance() {
 
+		int id = inputPrinter.inputInt(InputPrinter.USER_ID_MESSAGE);
+		String date = inputPrinter.inputString(InputPrinter.DATE_MESSAGE);
+
+		String resultMessage = manageRepository.delete(id, date);
+		outputPrinter.printResultMessage(resultMessage);
+
+	}
+
+	private void searchMemberWorkAttendance() {
+
+		int id = inputPrinter.inputInt(InputPrinter.USER_ID_MESSAGE);
+
+		String resultMessage = manageRepository.findDepartmentWorkAttendance(id);
+		outputPrinter.printResultMessage(resultMessage);
+	}
+
+	private void searchDepartmentWorkAttendance() {
+
+		int id = inputPrinter.inputInt(InputPrinter.USER_ID_MESSAGE);
+
+		String resultMessage = manageRepository.findDepartmentWorkAttendance(id);
+		outputPrinter.printResultMessage(resultMessage);
+
+	}
 
 }
