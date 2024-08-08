@@ -1,7 +1,7 @@
 ## 🚀 근태관리 Java / DB 2인 Study Project
-#### Table PPT 링크
-- java:17
-- mysql:8
+#### Table PPT, ERD Cloud link
+- 
+- 
 
 #### CLI with Dockerfile and compose.xml : duration 150.4s
 ```
