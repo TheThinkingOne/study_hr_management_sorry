@@ -1,6 +1,6 @@
 package com.hr.manage.view;
 
-import com.hr.manage.domain.MemberInfo;
+import com.hr.manage.domain.dto.response.MemberInfoResponseDTO;
 
 public class OutputPrinter {
 
@@ -52,21 +52,17 @@ public class OutputPrinter {
 		System.out.println("\n근태 정보가 입력되었습니다.\n");
 	}
 
-	public void printMemberWorkAttendanceStatus(MemberInfo memberInfo) {
+	public void printMemberWorkAttendanceStatus(MemberInfoResponseDTO memberInfoResponseDTO) {
 
-		System.out.println("직원 ID: " + memberInfo.getID());
-		System.out.println("이름: " + memberInfo.getName());
-		System.out.println("부서: " + memberInfo.getDepartment());
+		System.out.println("직원 ID: " + memberInfoResponseDTO.getID());
+		System.out.println("이름: " + memberInfoResponseDTO.getName());
+		System.out.println("부서: " + memberInfoResponseDTO.getDepartment());
 
 		System.out.println("출력문 추가구현");
 	}
 
-	public void printDeleteAttendanceEndMessage() {
-		System.out.println("근태 수정 완료");
+	public void printResultMessage(String message) {
+		System.out.println(message);
 	}
-	public void printUpdateAttendanceEndMessage() {
-		System.out.println("근태 삭제 완료");
-	}
-
 
 }
