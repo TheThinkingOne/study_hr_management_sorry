@@ -22,7 +22,9 @@ public class InputPrinter {
 
 	public int inputInt(String message) {
 		System.out.print(message);
-		return scanner.nextInt();
+		int input = scanner.nextInt();
+		scanner.nextLine();
+		return input;
 	}
 
 }
