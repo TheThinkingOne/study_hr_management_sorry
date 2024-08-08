@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.hr.manage.config.MySQLConnector;
+import com.hr.manage.domain.dto.request.WorkAttendanceRequestDTO;
 
 public class ManageRepository {
 
@@ -14,6 +15,7 @@ public class ManageRepository {
 		this.stmt = MySQLConnector.getConnection();
 	}
 
+	// responseDTO return 으로 변경
 	public String find() {
 
 		String query = "";
@@ -27,19 +29,51 @@ public class ManageRepository {
 		return "find data";
 	}
 
-	public String insert() throws SQLException {
+	public String insert(WorkAttendanceRequestDTO workAttendanceRequestDTO){
 
 		String query = "";
 
 		try {
-			System.out.println("DB update logic");
-			stmt.execute(query);
+
+			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return "update complete";
+		return "근태 정보가 입력되었습니다.";
 	}
+
+	public String update(WorkAttendanceRequestDTO workAttendanceRequestDTO) {
+
+
+		String query = "";
+
+		try {
+
+			stmt.executeUpdate(query);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return "근태 정보가 수정되었습니다.";
+	}
+
+	public String delete(long id) {
+
+		String query = "";
+
+		try {
+
+			stmt.executeUpdate(query);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return "근태 정보가 삭제되었습니다.";
+	}
+
 
 }
