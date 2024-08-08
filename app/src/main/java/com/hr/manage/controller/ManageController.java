@@ -106,7 +106,7 @@ public class ManageController {
 
 	private void searchDepartmentWorkAttendance() {
 
-		int id = inputPrinter.inputInt(InputPrinter.USER_ID_MESSAGE);
+		int id = inputPrinter.inputInt(InputPrinter.DEPARTMENT_ID_MESSAGE);
 
 		String resultMessage = manageRepository.findDepartmentWorkAttendance(id);
 		outputPrinter.printResultMessage(resultMessage);
