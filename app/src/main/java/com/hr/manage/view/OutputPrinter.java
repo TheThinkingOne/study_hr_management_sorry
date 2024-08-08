@@ -48,10 +48,6 @@ public class OutputPrinter {
 		);
 	}
 
-	public void printWorkAttendanceEnd() {
-		System.out.println("\n근태 정보가 입력되었습니다.\n");
-	}
-
 	public void printMemberWorkAttendanceStatus(MemberInfoResponseDTO memberInfoResponseDTO) {
 
 		System.out.println("직원 ID: " + memberInfoResponseDTO.getID());

@@ -34,10 +34,8 @@ public class ManageController {
 
 				outputPrinter.printManageOption();
 				manageCommand = inputPrinter.inputInt(InputPrinter.CHOOSE_MESSAGE);
+				conductManageCommand(manageCommand);
 
-				if (manageCommand == 3) {
-					conductManageCommand(manageCommand);
-				}
 			}
 
 		}
@@ -63,7 +61,6 @@ public class ManageController {
 				return;
 			case 5:
 				searchDepartmentWorkAttendance();
-				return;
 		}
 	}
 
