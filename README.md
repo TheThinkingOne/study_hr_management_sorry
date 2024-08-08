@@ -1,5 +1,5 @@
-## java_mysql
-#### Main package
+## 🚀 근태관리 Java / DB 2인 Study Project
+#### Table PPT 링크
 - java:17
 - mysql:8
 
