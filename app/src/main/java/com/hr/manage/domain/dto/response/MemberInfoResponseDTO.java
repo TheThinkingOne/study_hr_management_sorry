@@ -1,24 +1,24 @@
-package com.hr.manage.domain;
+package com.hr.manage.domain.dto.response;
 
 import java.util.Map;
 
-public class MemberInfo {
+public class MemberInfoResponseDTO {
 
-	private int ID;
+	private long ID;
 	private String name;
 	private String department;
 
 	// key : date value : 출근 or 휴가
 	private Map<String, String> workAttendanceDetails;
 
-	public MemberInfo(int ID, String name, String department, Map<String, String> workAttendanceDetails) {
+	public MemberInfoResponseDTO(long ID, String name, String department, Map<String, String> workAttendanceDetails) {
 		this.ID = ID;
 		this.name = name;
 		this.department = department;
 		this.workAttendanceDetails = workAttendanceDetails;
 	}
 
-	public int getID() {
+	public long getID() {
 		return ID;
 	}
 
