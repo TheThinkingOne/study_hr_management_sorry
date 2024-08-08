@@ -1,7 +1,7 @@
-## java_mysql
-#### Main package
-- java:17
-- mysql:8
+## 🚀 근태관리 Java / DB 2인 Study Project
+#### Table PPT, ERD Cloud link
+* PPT : <https://docs.google.com/presentation/d/12k6j5xtSZQV8oXDVsMhD7JaiM1ImmFIHw_X5HiFqYKA/edit#slide=id.g27fc3531476_0_0>
+* ERD : <https://www.erdcloud.com/d/68u4PNLq74juqDWd3>
 
 #### CLI with Dockerfile and compose.xml : duration 150.4s
 ```
