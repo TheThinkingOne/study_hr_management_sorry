@@ -34,8 +34,8 @@ public class OutputPrinter {
 			"==== 근태 관리 ====\n"
 				+ "\n"
 				+ "1. 근태 입력\n"
-				+ "2. 근태 수정 *\n"
-				+ "3. 근태 삭제 *\n"
+				+ "2. 근태 수정\n"
+				+ "3. 근태 삭제\n"
 				+ "4. 직원별 월별 근태 현황 보기\n"
 				+ "5. 부서별 월별 근태 현황 보기\n"
 				+ "0. 메인 메뉴로 돌아가기\n"
@@ -63,6 +63,7 @@ public class OutputPrinter {
 
 	public void printResultMessage(String message) {
 		System.out.println(message);
+		System.out.println();
 	}
 
 }
