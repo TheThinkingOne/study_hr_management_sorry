@@ -2,6 +2,7 @@ package com.hr.manage.controller;
 
 import com.hr.manage.config.MySQLConnector;
 import com.hr.manage.domain.dto.request.WorkAttendanceRequestDTO;
+import com.hr.manage.domain.dto.response.DepartmentInfoResponseDTO;
 import com.hr.manage.repository.ManageRepository;
 import com.hr.manage.view.InputPrinter;
 import com.hr.manage.view.OutputPrinter;
@@ -102,18 +103,18 @@ public class ManageController {
 
 	private void searchMemberWorkAttendance() {
 
-		String id = inputPrinter.inputString(InputPrinter.USER_ID_MESSAGE);
+		String id = inputPrinter.inputString(InputPrinter.USER_ID_MESSAGE).toUpperCase();
 
-		String resultMessage = manageRepository.findDepartmentWorkAttendance(id);
+		String resultMessage = manageRepository.findMemberWorkAttendance(id);
 		outputPrinter.printResultMessage(resultMessage);
 	}
 
 	private void searchDepartmentWorkAttendance() {
 
-		String id = inputPrinter.inputString(InputPrinter.DEPARTMENT_ID_MESSAGE);
+		String departmentName = inputPrinter.inputString(InputPrinter.DEPARTMENT_NAME_MESSAGE).toUpperCase();
 
-		String resultMessage = manageRepository.findDepartmentWorkAttendance(id);
-		outputPrinter.printResultMessage(resultMessage);
+		DepartmentInfoResponseDTO departmentInfoResponseDTO = manageRepository.findDepartmentWorkAttendance(departmentName);
+		outputPrinter.printResultMessage(departmentInfoResponseDTO.toString());
 
 	}
 

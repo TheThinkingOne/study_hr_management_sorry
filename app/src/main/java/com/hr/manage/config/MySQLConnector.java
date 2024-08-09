@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 public class MySQLConnector {
 
-	static final String DB_URL = "jdbc:mysql://192.168.0.86/java_mysql";   // container name
+	static final String DB_URL = "jdbc:mysql://192.168.0.86/db_study_attend_miniproj";   // container name
 	static final String USER = "cocolabhub";
 	static final String PASS = "cocolabhub2024";
 
