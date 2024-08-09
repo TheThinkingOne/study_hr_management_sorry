@@ -29,15 +29,19 @@ public class ManageController {
 				break;
 			}
 
-			int manageCommand = -1;
-			while (manageCommand != 0) {
+			if(mainCommand == 3) {
 
-				outputPrinter.printManageOption();
-				manageCommand = inputPrinter.inputInt(InputPrinter.CHOOSE_MESSAGE);
-				conductManageCommand(manageCommand);
+				int manageCommand = -1;
+				while (manageCommand != 0) {
 
+					outputPrinter.printManageOption();
+					manageCommand = inputPrinter.inputInt(InputPrinter.CHOOSE_MESSAGE);
+					conductManageCommand(manageCommand);
+
+				}
+			} else {
+				System.out.println("사용할 수 없는 기능입니다");
 			}
-
 		}
 
 		MySQLConnector.close();
