@@ -18,7 +18,7 @@ public class ManageRepository {
 	}
 
 	// responseDTO return 으로 변경
-	public DepartmentInfoResponseDTO findDepartmentWorkAttendance(String departmentName){
+	public DepartmentInfoResponseDTO findDepartmentWorkAttendance(String departmentName) {
 
 		String query = """
 				SELECT DEPT_NAME,
@@ -84,7 +84,7 @@ public class ManageRepository {
 
 
 	// responseDTO return 으로 변경
-	public String findMemberWorkAttendance(String id){
+	public String findMemberWorkAttendance(String id) {
 
 		String query = "";
 
@@ -104,17 +104,26 @@ public class ManageRepository {
 
 
 	public String insert(WorkAttendanceRequestDTO workAttendanceRequestDTO){
+		// 근태 정보 입력 쿼리 부분
+		String query = """
+				INSERT INTO ATTENDANCE(ATD_ID_PK, EMP_ID, DATE, ATD_TYPE_PK, DEPT_ID)
+				VALUES(?,?,?,?,?)
+				""";
 
-		String query = "";
-/*
-		try {
+		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			 PreparedStatement pstmt = conn.prepareStatement(query)) {
+			pstmt.setString(1, workAttendanceRequestDTO.getAtdIdPk()); // 고유 ID
+			pstmt.setString(2, workAttendanceRequestDTO.getEmpId()); // 직원 ID
+			pstmt.setString(3, workAttendanceRequestDTO.getDate()); // 날짜
+			pstmt.setString(4, workAttendanceRequestDTO.getAttendTypePk()); // 근무 상태의 PK
+			pstmt.setString(5, workAttendanceRequestDTO.getDeptId()); // 부서 ID
 
-			stmt.executeUpdate(query);
+			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return "근태 정보 입력 중 오류 발생";
 		}
-	*/
 
 		System.out.println("입력 로직");
 
@@ -122,37 +131,58 @@ public class ManageRepository {
 	}
 
 	public String update(WorkAttendanceRequestDTO workAttendanceRequestDTO) {
+		// 근태 정보 수정 쿼리 부분
 
+		String query = """
+				UPDATE ATTENDANCE
+				SET ATD_TYPE_PK = ?
+				WHERE EMP_ID = ?
+				AND DATE = ?
+				""";
 
-		String query = "";
-
-/*
-		try {
+		/*try {
 
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}*/
+
+		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			 PreparedStatement pstmt = conn.prepareStatement(query)) {
+			pstmt.setString(1, workAttendanceRequestDTO.getAttendTypePk()); // 새로운 근무 상태의 PK
+			pstmt.setString(2, workAttendanceRequestDTO.getEmpId()); // 직원 ID
+			pstmt.setString(3, workAttendanceRequestDTO.getDate()); // 날짜
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "근태 정보 수정 중 오류 발생";
 		}
-*/
 
 		return "근태 정보가 수정되었습니다.";
 	}
 
 	public String delete(String id, String date) {
+		// 근태 정보 삭제 쿼리 부분
+		String query = """
+				DELETE FROM ATTENDANCE
+				WHERE EMP_ID = ?
+				AND DATE = ?
+				""";
 
-		String query = "";
+		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			 PreparedStatement pstmt = conn.prepareStatement(query)) {
+			pstmt.setString(1, id); // 직원 ID
+			pstmt.setString(2, date); // 날짜
 
-/*
-		try {
-
-			// stmt.executeUpdate(query);
-			System.out.println("삭제 로직");
+			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return "근태 정보 삭제 중 오류 발생";
 		}
-*/
 
 		return "근태 정보가 삭제되었습니다.";
 	}
