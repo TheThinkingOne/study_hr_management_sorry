@@ -29,7 +29,7 @@ public class ManageController {
 				break;
 			}
 
-			if(mainCommand == 3) {
+			if (mainCommand == 3) {
 
 				int manageCommand = -1;
 				while (manageCommand != 0) {
@@ -70,7 +70,7 @@ public class ManageController {
 
 	private void updateWorkAttendance() {
 
-		int id = inputPrinter.inputInt(InputPrinter.USER_ID_MESSAGE);
+		String id = inputPrinter.inputString(InputPrinter.USER_ID_MESSAGE);
 		String date = inputPrinter.inputString(InputPrinter.DATE_MESSAGE);
 		String workAttendance = inputPrinter.inputString(InputPrinter.WORK_ATTENDANCE_MESSAGE);
 
@@ -81,7 +81,7 @@ public class ManageController {
 
 	private void insertWorkAttendance() {
 
-		int id = inputPrinter.inputInt(InputPrinter.USER_ID_MESSAGE);
+		String id = inputPrinter.inputString(InputPrinter.USER_ID_MESSAGE);
 		String date = inputPrinter.inputString(InputPrinter.DATE_MESSAGE);
 		String workAttendance = inputPrinter.inputString(InputPrinter.WORK_ATTENDANCE_MESSAGE);
 
@@ -92,7 +92,7 @@ public class ManageController {
 
 	private void deleteWorkAttendance() {
 
-		int id = inputPrinter.inputInt(InputPrinter.USER_ID_MESSAGE);
+		String id = inputPrinter.inputString(InputPrinter.USER_ID_MESSAGE);
 		String date = inputPrinter.inputString(InputPrinter.DATE_MESSAGE);
 
 		String resultMessage = manageRepository.delete(id, date);
@@ -102,7 +102,7 @@ public class ManageController {
 
 	private void searchMemberWorkAttendance() {
 
-		int id = inputPrinter.inputInt(InputPrinter.USER_ID_MESSAGE);
+		String id = inputPrinter.inputString(InputPrinter.USER_ID_MESSAGE);
 
 		String resultMessage = manageRepository.findDepartmentWorkAttendance(id);
 		outputPrinter.printResultMessage(resultMessage);
@@ -110,7 +110,7 @@ public class ManageController {
 
 	private void searchDepartmentWorkAttendance() {
 
-		int id = inputPrinter.inputInt(InputPrinter.DEPARTMENT_ID_MESSAGE);
+		String id = inputPrinter.inputString(InputPrinter.DEPARTMENT_ID_MESSAGE);
 
 		String resultMessage = manageRepository.findDepartmentWorkAttendance(id);
 		outputPrinter.printResultMessage(resultMessage);

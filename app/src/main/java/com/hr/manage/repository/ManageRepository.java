@@ -16,7 +16,7 @@ public class ManageRepository {
 	}
 
 	// responseDTO return 으로 변경
-	public String findDepartmentWorkAttendance(int id){
+	public String findDepartmentWorkAttendance(String id){
 
 		String query = "";
 
@@ -36,7 +36,7 @@ public class ManageRepository {
 
 
 	// responseDTO return 으로 변경
-	public String findMemberWorkAttendance(int id){
+	public String findMemberWorkAttendance(String id){
 
 		String query = "";
 
@@ -91,7 +91,7 @@ public class ManageRepository {
 		return "근태 정보가 수정되었습니다.";
 	}
 
-	public String delete(long id, String date) {
+	public String delete(String id, String date) {
 
 		String query = "";
 

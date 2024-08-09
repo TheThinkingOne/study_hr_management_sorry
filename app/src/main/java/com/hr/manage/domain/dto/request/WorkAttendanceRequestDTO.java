@@ -2,25 +2,25 @@ package com.hr.manage.domain.dto.request;
 
 public class WorkAttendanceRequestDTO {
 
-	private long id;
+	private String ID;
 	private String date;
 	private String attendanceStatus;
 
 	public WorkAttendanceRequestDTO() {
 	}
 
-	public WorkAttendanceRequestDTO(long id, String date, String attendanceStatus) {
-		this.id = id;
+	public WorkAttendanceRequestDTO(String ID, String date, String attendanceStatus) {
+		this.ID = ID;
 		this.date = date;
 		this.attendanceStatus = attendanceStatus;
 	}
 
-	public long getId() {
-		return id;
+	public String getID() {
+		return ID;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setID(String ID) {
+		this.ID = ID;
 	}
 
 	public String getDate() {

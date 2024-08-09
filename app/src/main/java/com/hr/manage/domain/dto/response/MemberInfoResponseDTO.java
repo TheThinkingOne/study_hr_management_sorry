@@ -4,21 +4,21 @@ import java.util.Map;
 
 public class MemberInfoResponseDTO {
 
-	private long ID;
+	private String ID;
 	private String name;
 	private String department;
 
 	// key : date value : 출근 or 휴가
 	private Map<String, String> workAttendanceDetails;
 
-	public MemberInfoResponseDTO(long ID, String name, String department, Map<String, String> workAttendanceDetails) {
+	public MemberInfoResponseDTO(String ID, String name, String department, Map<String, String> workAttendanceDetails) {
 		this.ID = ID;
 		this.name = name;
 		this.department = department;
 		this.workAttendanceDetails = workAttendanceDetails;
 	}
 
-	public long getID() {
+	public String getID() {
 		return ID;
 	}
 
