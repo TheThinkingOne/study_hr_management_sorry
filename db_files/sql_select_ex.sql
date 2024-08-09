@@ -1,46 +1,52 @@
--- 1. 직원별 2024년 8월의 근태 현황 (날짜별 근태 상태)
-SELECT e.EMP_ID, e.EMP_NAME, d.DEPT_NAME,
-       mt.DATE_PK AS 날짜, atd.ATD_TYPE AS 근무상태
-FROM MT_ATD_EMP mt
-         JOIN EMP_ID e ON mt.EMP_ID_PK = e.EMP_ID_PK
-         JOIN DATE d ON mt.DATE_PK = d.DATE_PK
-         JOIN ATD_TYPE atd ON mt.ATD_TYPE_PK = atd.ATD_TYPE_PK
-         JOIN DEPT_EMP_TABLE det ON e.EMP_ID_PK = det.EMP_ID_PK
-         JOIN DEPT d ON det.DEPT_PK = d.DEPT_PK
-WHERE mt.EMP_ID_PK = '12345'  -- 직원 ID를 필터링
-  AND mt.DATE_PK BETWEEN '2024-08-01' AND '2024-08-31'
-ORDER BY mt.DATE_PK;
-
--- 직원별 총 출근일수, 결근일수, 휴가일수
+-- 특정 직원의 총 출근 일수, 총 결근 일수, 총 휴가 일수를 조회하는 쿼리
 SELECT
-    e.EMP_ID, e.EMP_NAME,
-    COUNT(CASE WHEN atd.ATD_TYPE = '출근' THEN 1 END) AS 출근일수,
-    COUNT(CASE WHEN atd.ATD_TYPE = '결근' THEN 1 END) AS 결근일수,
-    COUNT(CASE WHEN atd.ATD_TYPE = '휴가' THEN 1 END) AS 휴가일수
-FROM MT_ATD_EMP mt
-         JOIN EMP_ID e ON mt.EMP_ID_PK = e.EMP_ID_PK
-         JOIN ATD_TYPE atd ON mt.ATD_TYPE_PK = atd.ATD_TYPE_PK
-WHERE mt.EMP_ID_PK = '12345'  -- 직원 ID를 필터링, 여기에 ? 넣어서 원하는 직원 아이디 넣어주시면 될 것 같아요
-  AND mt.DATE_PK BETWEEN '2024-08-01' AND '2024-08-31'
-GROUP BY e.EMP_ID, e.EMP_NAME;
-
-
-
--- 3. 부서별 2024년 8월의 근태 현황 (각 직원별)
+    e.EMP_ID AS '직원 ID',
+    e.EMP_NAME AS '이름',
+    d.DEPT_NAME AS '부서',
+    COUNT(CASE WHEN at.ATD_TYPE = '출근' THEN 1 END) AS '총 출근 일수',
+    COUNT(CASE WHEN at.ATD_TYPE = '결근' THEN 1 END) AS '총 결근 일수',
+    COUNT(CASE WHEN at.ATD_TYPE = '휴가' THEN 1 END) AS '총 휴가 일수'
+FROM
+    ATTENDANCE a
+JOIN
+    EMPLOYEE e ON a.EMP_ID = e.EMP_ID
+JOIN
+    DEPARTMENT d ON e.DEPT_ID = d.DEPT_ID_PK
+JOIN
+    ATTENDTYPE at ON a.ATD_TYPE_PK = at.ATD_TYPE_PK
+WHERE
+    e.EMP_ID = '12345' -- 특정 직원의 ID를 지정
+    AND a.DATE BETWEEN '2024-08-01' AND '2024-08-31' -- 날짜 범위를 지정
+GROUP BY
+    e.EMP_ID, e.EMP_NAME, d.DEPT_NAME;
+    
+    
+-- 특정 부서의 직원별 출근율 및 근태 현황을 조회하는 쿼리
 SELECT
-    d.DEPT_NAME AS 부서,
-    e.EMP_ID, e.EMP_NAME,
-    COUNT(CASE WHEN atd.ATD_TYPE = '출근' THEN 1 END) AS 출근일수,
-    COUNT(CASE WHEN atd.ATD_TYPE = '결근' THEN 1 END) AS 결근일수,
-    COUNT(CASE WHEN atd.ATD_TYPE = '휴가' THEN 1 END) AS 휴가일수,
-    ROUND((COUNT(CASE WHEN atd.ATD_TYPE = '출근' THEN 1 END) * 100.0) / 31, 2) AS 출근율  -- 31일 기준
-FROM MT_ATD_EMP mt
-         JOIN EMP_ID e ON mt.EMP_ID_PK = e.EMP_ID_PK
-         JOIN DATE d ON mt.DATE_PK = d.DATE_PK
-         JOIN ATD_TYPE atd ON mt.ATD_TYPE_PK = atd.ATD_TYPE_PK
-         JOIN DEPT_EMP_TABLE det ON e.EMP_ID_PK = det.EMP_ID_PK
-         JOIN DEPT d ON det.DEPT_PK = d.DEPT_PK
-WHERE d.DEPT_NAME = '개발팀'  -- 부서명을 필터링, 여기에 ? 넣어서 원하는 개발팀 넣어주시면 될 것 같아요
-  AND mt.DATE_PK BETWEEN '2024-08-01' AND '2024-08-31'
-GROUP BY d.DEPT_NAME, e.EMP_ID, e.EMP_NAME;
+    e.EMP_ID AS '직원 ID',
+    e.EMP_NAME AS '이름',
+    d.DEPT_NAME AS '부서',
+    ROUND(
+        (COUNT(CASE WHEN at.ATD_TYPE = '출근' THEN 1 END) / 24) * 100, 2
+    ) AS '출근율 (%)',
+    COUNT(CASE WHEN at.ATD_TYPE = '출근' THEN 1 END) AS '총 출근 일수',
+    COUNT(CASE WHEN at.ATD_TYPE = '결근' THEN 1 END) AS '총 결근 일수',
+    COUNT(CASE WHEN at.ATD_TYPE = '휴가' THEN 1 END) AS '총 휴가 일수'
+FROM
+    ATTENDANCE a
+JOIN
+    EMPLOYEE e ON a.EMP_ID = e.EMP_ID
+JOIN
+    DEPARTMENT d ON e.DEPT_ID = d.DEPT_ID_PK
+JOIN
+    ATTENDTYPE at ON a.ATD_TYPE_PK = at.ATD_TYPE_PK
+WHERE
+    d.DEPT_NAME = 'HR' -- 특정 부서 이름을 지정
+    AND a.DATE BETWEEN '2024-08-01' AND '2024-08-31' -- 날짜 범위를 지정
+GROUP BY
+    e.EMP_ID, e.EMP_NAME, d.DEPT_NAME;
+
+
+
+
 
